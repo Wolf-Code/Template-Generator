@@ -1,9 +1,12 @@
 {
-  "name": "componentgenerator",
+	"name": "componentgenerator",
 	"displayName": "ComponentGenerator",
 	"description": "Generates all files required for creating a component",
 	"version": "0.0.1",
 	"publisher": "kevin-deelen",
+	"repository": {
+		"url": "https://github.com/Wolf-Code/Component-Generator"
+	},
 	"engines": {
 		"vscode": "^1.48.0"
 	},
@@ -11,10 +14,16 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:componentgenerator.generateComponent"
+		"onCommand:componentgenerator.generateComponent"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"commands": [
+			{
+				"command": "componentgenerator.generateComponent",
+				"title": "Generate component"
+			}
+		],
 		"menus": {
 			"explorer/context": [
 				{
@@ -30,7 +39,8 @@
 		"lint": "eslint src --ext ts",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile && yarn run lint",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"package": "vsce package"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.48.0",

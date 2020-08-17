@@ -7,28 +7,34 @@ import { ComponentExistsError } from './errors/component-exists.error'
 import files from './files'
 import { VSCodeWindow } from './vscode.interfaces'
 
-
 export class ComponentGenerator implements IDisposable {
 	constructor(
 		private window: VSCodeWindow
 	) { }
 
-	async execute (selectedPath: string): Promise<void> {
-		// prompt for the name of the duck, or the path to create the duck in
-		const componentName: string | undefined = await this.prompt()
+	async execute (selectedPath?: string): Promise<void> {
+		if (!selectedPath) {
+			const openFilePath = this.window.activeTextEditor?.document?.fileName
+			if (!openFilePath) {
+				this.window.showErrorMessage('No folder was selected in the explorer and there is no open file. Unable to create component.')
+				return
+			}
+
+			selectedPath = path.dirname(openFilePath)
+		}
+
+		const componentName: string | undefined = await this.prompt(selectedPath)
 
 		if (!componentName) {
 			return
 		}
-
-		const absolutePath: string = path.resolve(selectedPath, componentName)
+		const absolutePath: string = path.resolve(selectedPath as string, componentName)
 
 		try {
 			this.create(componentName, absolutePath)
 
 			this.window.showInformationMessage(`Component '${componentName}' successfully created`)
 		} catch (err) {
-			// log?
 			if (err instanceof ComponentExistsError) {
 				this.window.showErrorMessage(`Component '${componentName}' already exists`)
 			} else {
@@ -37,11 +43,10 @@ export class ComponentGenerator implements IDisposable {
 		}
 	}
 
-	async prompt (): Promise<string | undefined> {
-		// this can be abstracted out as an argument for prompt
+	async prompt (componentPath: string): Promise<string | undefined> {
 		const options: InputBoxOptions = {
 			ignoreFocusOut: true,
-			prompt: `Component name`,
+			prompt: `Component name (will be created in ${componentPath})`,
 			placeHolder: 'SomeComponent',
 			validateInput: this.validate
 		}
@@ -55,7 +60,6 @@ export class ComponentGenerator implements IDisposable {
 		}
 
 		try {
-			// create the directory
 			fs.mkdirSync(componentPath)
 
 			files.forEach((file: IComponentFile) => {
@@ -65,7 +69,6 @@ export class ComponentGenerator implements IDisposable {
 				fs.writeFileSync(fullpath, this.fillVariables(file.content, componentName))
 			})
 		} catch (err) {
-			// log other than console?
 			console.log('Error', err.message)
 
 			throw err
@@ -89,11 +92,10 @@ export class ComponentGenerator implements IDisposable {
 			return 'Component names should be PascalCase and therefore cannot include -'
 		}
 
-		// no errors
 		return null
 	}
-	
+
 	dispose (): void {
-		console.log('disposing...')
+		
 	}
 }

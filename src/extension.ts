@@ -11,7 +11,7 @@ export function activate(context: ExtensionContext) {
   // The commandId parameter must match the command field in package.json
   let disposable = commands.registerCommand('componentgenerator.generateComponent', e => {
 	// The code you place here will be executed every time your command is executed
-    generator.execute(e.fsPath);
+	generator.execute(e && e.fsPath);
   });
 
   context.subscriptions.push(disposable);

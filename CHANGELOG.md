@@ -1,9 +1,14 @@
 # Change Log
 
-All notable changes to the "componentgenerator" extension will be documented in this file.
+## [0.0.2] - 17-08-2020
+### Added
+- Path indication before creating the component
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### Changed
+- Removed placeholder changelog content
 
-## [Unreleased]
+### Fixed
+- Command was missing and therefore did not show up
 
+## [0.0.1]
 - Initial release
