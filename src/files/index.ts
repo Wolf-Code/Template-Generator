@@ -1,3 +1,4 @@
+import { default as IndexFile } from './index-file'
 import { default as StateFile } from './state'
 import { default as StylesheetFile } from './stylesheet'
 import { default as TypesFile } from './types'
@@ -7,5 +8,6 @@ export default [
 	ViewFile,
 	TypesFile,
 	StateFile,
-	StylesheetFile
+	StylesheetFile,
+	IndexFile
 ]

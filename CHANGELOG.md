@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.3] - 17-08-2020
+### Added
+- Missing index.ts file
+
 ## [0.0.2] - 17-08-2020
 ### Added
 - Path indication before creating the component

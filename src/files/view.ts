@@ -6,7 +6,7 @@ export default {
 import { {name}ViewProps } from './{name}.types'
 
 export default (props: {name}ViewProps) => {
-	return <div>test</div>
+	return <div>Placeholder for {name}</div>
 }
 `
 } as IComponentFile
