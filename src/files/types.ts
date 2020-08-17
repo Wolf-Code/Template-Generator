@@ -4,7 +4,7 @@ export default {
 	name: "{name}.types.ts",
 	content: `import { ComponentProps } from "utilities/createComponent";
 
-export interface {name}StateProps {
+export interface {name}StateProps extends ComponentProps {
 
 }
 

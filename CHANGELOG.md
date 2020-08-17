@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.4] - 17-08-2020
+### Fixed
+- Missing `extends ComponentProps` on state props interface
+
 ## [0.0.3] - 17-08-2020
 ### Added
 - Missing index.ts file
