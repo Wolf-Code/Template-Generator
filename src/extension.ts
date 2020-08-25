@@ -14,7 +14,12 @@ export function activate(context: ExtensionContext) {
 	generator.execute(e && e.fsPath);
   });
 
+  let disposable2 = commands.registerCommand('componentgenerator.openTemplates', e => {
+	  generator.openExtensionsDirectory();
+  })
+
   context.subscriptions.push(disposable);
+  context.subscriptions.push(disposable2);
   context.subscriptions.push(generator);
 }
 

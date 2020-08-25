@@ -31,7 +31,18 @@
 					"command": "componentgenerator.generateComponent"
 				}
 			]
-		}
+		},
+		"configuration": [
+			{
+				"title": "Templates",
+				"properties": {
+					"templates.path": {
+						"type": "string",
+						"description": "The path to the directory containing all templates"
+					}
+				}
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",

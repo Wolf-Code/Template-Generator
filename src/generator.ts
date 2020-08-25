@@ -5,6 +5,7 @@ import { IComponentFile } from './component-file.interface'
 import { IDisposable } from './disposable.interface'
 import { ComponentExistsError } from './errors/component-exists.error'
 import files from './files'
+import { getTemplates } from './templates/templates-service'
 import { VSCodeWindow } from './vscode.interfaces'
 
 export class ComponentGenerator implements IDisposable {
@@ -13,6 +14,8 @@ export class ComponentGenerator implements IDisposable {
 	) { }
 
 	async execute (selectedPath?: string): Promise<void> {
+		const templates = getTemplates()
+		console.log(templates)
 		if (!selectedPath) {
 			const openFilePath = this.window.activeTextEditor?.document?.fileName
 			if (!openFilePath) {
@@ -93,6 +96,10 @@ export class ComponentGenerator implements IDisposable {
 		}
 
 		return null
+	}
+
+	async openExtensionsDirectory () {
+		//cp.execSync('explorer "%USERPROFILE%\\.vscode\\extensions"')
 	}
 
 	dispose (): void {
