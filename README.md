@@ -1,6 +1,7 @@
 ## Features
 
 Automatic template generation in Visual Studio Code based on a pre-defined templates folder, using an extra context menu entry on directories in the Explorer.
+![](demo.gif)
 
 ### Configuration
 
