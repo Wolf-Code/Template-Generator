@@ -2,7 +2,7 @@
 	"name": "templategenerator",
 	"displayName": "Template Generator",
 	"description": "Generates all files based on a template",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "kevin-deelen",
 	"repository": {
 		"url": "https://github.com/Wolf-Code/Template-Generator"

@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.1.1] - 27-08-2020
+### Changed
+- Improve on the readme instructions, config file is *not* required
+
 ## [0.1.0] - 27-08-2020
 ### Added
 - File based template generation with custom parameters
