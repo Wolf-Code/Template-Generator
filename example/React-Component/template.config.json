@@ -1,0 +1,15 @@
+{
+	"parameters": [
+		{
+			"name": "Component name",
+			"description": "The name of the react component",
+			"variable": "name",
+			"pattern": "[a-zA-Z0-9]+"
+		},
+		{
+			"name": "Root class",
+			"description": "The class to apply to the root element of the component",
+			"variable": "rootClass"
+		}
+	]
+}

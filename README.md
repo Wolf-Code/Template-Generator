@@ -39,3 +39,7 @@ You can add all your own files and (sub-)directories to the template folder and 
 #### Usage of parameters
 When adding files or contents of files to the template, parameter placeholders can be used.  
 These placeholders look like `{variablename}` and will be replaced with the value entered in Visual Studio Code when running the template generation.
+
+### Examples
+
+An example of a template (an overly templified React component) can be found in the `example` folder of this repository.

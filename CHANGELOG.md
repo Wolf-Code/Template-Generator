@@ -1,5 +1,12 @@
 # Change Log
 
+# [0.1.2] - 27-08-2020
+### Added
+- Example React component template
+
+### Changed
+- Updated readme
+
 ## [0.1.1] - 27-08-2020
 ### Changed
 - Improve on the readme instructions, config file is *not* required
