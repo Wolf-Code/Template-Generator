@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.1.0] - 27-08-2020
+### Added
+- File based template generation with custom parameters
+
+### Removed
+- Hard-coded templates
+
 ## [0.0.4] - 17-08-2020
 ### Fixed
 - Missing `extends ComponentProps` on state props interface
