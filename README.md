@@ -9,7 +9,7 @@ In your preferences, set the `templates.path` variable as the path to a director
 ### Creating a template
 
 Inside the template folder, create a new folder with a recognizable name. This will be the name of this specific template.  
-This template folder requires a `template.config.json` file.  
+This template folder can contain an optional `template.config.json` file if you intent to make use of parameters.  
 
 #### template.config.json
 

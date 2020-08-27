@@ -9,7 +9,7 @@ export const executeGenerateTemplateCommand = async (selectedPath?: string) => {
 	if (!selectedPath) {
 		const openFilePath = window.activeTextEditor?.document?.fileName
 		if (!openFilePath) {
-			window.showErrorMessage('No folder was selected in the explorer and there is no open file. Unable to create component.')
+			window.showErrorMessage('No folder was selected in the explorer and there is no open file. Unable to generate template.')
 			return
 		}
 
