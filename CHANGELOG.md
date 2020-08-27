@@ -1,4 +1,7 @@
 # Change Log
+# [0.1.3] - 27-08-2020
+### Added
+- Readme demo gif
 
 # [0.1.2] - 27-08-2020
 ### Added
