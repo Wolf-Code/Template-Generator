@@ -1,4 +1,8 @@
 # Change Log
+# [0.1.4] - 28-08-2020
+### Changed
+- Added .gif to .vscodeignore file to decrease extension size
+
 # [0.1.3] - 27-08-2020
 ### Added
 - Readme demo gif
