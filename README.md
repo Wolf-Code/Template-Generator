@@ -34,8 +34,7 @@ The contents of this config file are as follows:
 * `description`: This is the description of the parameter as it is presented during generation inside Visual Studio Code
 * `pattern` (optional): An optional RegEx pattern to ensure the user inputs a correct value.
 
-Other than this `template.config.json` file, nothing is required.  
-You can add all your own files and (sub-)directories to the template folder and these will all be created when the template is generated in Visual Studio Code.  
+You can add all your own files and (sub-)directories to the template folder and they will all be created when the template is generated in Visual Studio Code.  
 
 #### Usage of parameters
 When adding files or contents of files to the template, parameter placeholders can be used.  
