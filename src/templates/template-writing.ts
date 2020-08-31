@@ -39,14 +39,17 @@ const replaceParametersWithValues = (parameters: TemplateParameter[], value: str
 	return finalValue
 }
 
-export const getTemplateParameters = async (template: Template): Promise<TemplateParameter[]> => {
+export const getTemplateParameters = async (template: Template): Promise<boolean> => {
 	let parameters = template.configuration.parameters
 
 	for (const parameter of parameters) {
 		await getParameterValue(parameter)
+		if(parameter.value === undefined) {
+			return false
+		}
 	}
 
-	return parameters
+	return true
 }
 
 export const generateTemplate = async (template: Template, generatePath: string) => {

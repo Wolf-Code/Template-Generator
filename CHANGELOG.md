@@ -1,4 +1,8 @@
 # Change Log
+# [0.1.5] - 31-08-2020
+### Fixed
+- Pressing escape to cancel the creation of the template no longer creates `undefined`
+
 # [0.1.4] - 28-08-2020
 ### Changed
 - Added .gif to .vscodeignore file to decrease extension size

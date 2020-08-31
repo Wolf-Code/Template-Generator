@@ -26,7 +26,12 @@ export const executeGenerateTemplateCommand = async (selectedPath?: string) => {
 	const absolutePath: string = path.resolve(selectedPath as string)
 
 	try {
-		await getTemplateParameters(template)
+		const parametersResult = await getTemplateParameters(template)
+		const wasCanceled = !(parametersResult)
+		if(wasCanceled) {
+			return
+		}
+		
 		await generateTemplate(template, absolutePath)
 
 		window.showInformationMessage(`Template '${template.name}' successfully created`)
