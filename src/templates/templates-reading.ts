@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import { resolve } from 'path'
 import { flatten } from 'lodash'
 import { join } from 'path'
 import { workspace } from 'vscode'
@@ -74,5 +75,14 @@ export const getTemplates = async (): Promise<Template[]> => {
 }
 
 export const getTemplatesPath = (): string | undefined => {
-	return workspace.getConfiguration('templates').get<string>('path')
+	let path = workspace.getConfiguration('templates').get<string>('path')
+
+	if (path?.startsWith('.')) {
+		const workspaces = workspace.workspaceFolders?.map(folder => folder.uri.fsPath)
+		if (workspaces && workspaces.length > 0) {
+			path = resolve(workspaces[0], path)
+		}
+	}
+
+	return path
 }
