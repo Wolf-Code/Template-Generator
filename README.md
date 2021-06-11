@@ -5,12 +5,14 @@ Automatic template generation in Visual Studio Code based on a pre-defined templ
 
 ### Configuration
 
-In your preferences, set the `templates.path` variable as the path to a directory which will contain all templates.
+In your preferences, set the `templates.path` variable as the path to a directory which will contain all templates.  
+As of 0.1.6 it is also possible to use a relative path (using ./path-to-folder or ../path-to-folder) and this will resolve based on the first open workspace.  
+This is especially useful for per-project templates, as you can use the .vscode directory with a settings.json file to set this path differently in different projects.
 
 ### Creating a template
 
 Inside the template folder, create a new folder with a recognizable name. This will be the name of this specific template.  
-This template folder can contain an optional `template.config.json` file if you intent to make use of parameters.  
+This template folder can contain an optional `template.config.json` file if you intend to make use of parameters.  
 
 #### template.config.json
 
