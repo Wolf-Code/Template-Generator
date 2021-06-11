@@ -1,4 +1,8 @@
 # Change Log
+# [0.1.6] - 11-06-2021
+### Added
+- Using a relative template path. If your path starts with a . it will now resolve that path based on the first workspace you have open. This allows for setting the path on a per-project basis using the .vscode folder and a settings.json.
+
 # [0.1.5] - 31-08-2020
 ### Fixed
 - Pressing escape to cancel the creation of the template no longer creates `undefined`
