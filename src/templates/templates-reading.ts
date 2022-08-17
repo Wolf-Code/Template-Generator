@@ -11,7 +11,7 @@ const getTemplate = async (templatesPath: string, dir: fs.Dirent): Promise<Templ
 	const fullDir = join(templatesPath, dir.name)
 	const configFilePath = join(fullDir, configFileName)
 	const config = getTemplateConfig(configFilePath)
-	const files = await getTemplateFiles(fullDir, '/')
+	const files = await getTemplateFiles(fullDir, '/', config.openAfterGeneration ?? [])
 
 	return {
 		name: dir.name,
@@ -20,7 +20,7 @@ const getTemplate = async (templatesPath: string, dir: fs.Dirent): Promise<Templ
 	} as Template
 }
 
-const getTemplateFiles = async (fullDir: string, subDirectory: string): Promise<TemplateFile[]> => {
+const getTemplateFiles = async (fullDir: string, subDirectory: string, openAfterGeneration: string[]): Promise<TemplateFile[]> => {
 	const currentDirectory = join(fullDir, subDirectory)
 	const entries = await fs.promises.readdir(currentDirectory, {
 		withFileTypes: true
@@ -28,12 +28,12 @@ const getTemplateFiles = async (fullDir: string, subDirectory: string): Promise<
 
 	const directories = entries.filter(x => x.isDirectory())
 	const directoriesMapped = directories.map(async directory => {
-		return await getTemplateFiles(fullDir, `${subDirectory}/${directory.name}`)
+		return await getTemplateFiles(fullDir, `${subDirectory}/${directory.name}`, openAfterGeneration)
 	})
 	const directoryFiles = flatten(await Promise.all(directoriesMapped))
 
 	const files = entries.filter(x => x.isFile() && x.name !== configFileName)
-	const filesMapped = files.map(async file => await getTemplateFile(file.name, join(currentDirectory, file.name), join(subDirectory, file.name)))
+	const filesMapped = files.map(async file => await getTemplateFile(file.name, join(currentDirectory, file.name), join(subDirectory, file.name), openAfterGeneration))
 	const templateFiles = await Promise.all(filesMapped)
 
 	return [...templateFiles, ...directoryFiles]
@@ -52,13 +52,16 @@ const getTemplateConfig = (configPath: string): TemplateConfiguration => {
 	return json as TemplateConfiguration
 }
 
-const getTemplateFile = async (name: string, path: string, relativePath: string): Promise<TemplateFile> => {
+const getTemplateFile = async (name: string, path: string, relativePath: string, openAfterGeneration: string[]): Promise<TemplateFile> => {
 	const contents = (await fs.promises.readFile(path)).toString('utf8')
 
+	const comparePath = relativePath.replace(/^\\+|\\+$/g, '')
+	
 	return {
 		name,
 		path: relativePath,
-		contents
+		contents,
+		openAfterGeneration: openAfterGeneration.find(x => x.replace('/', '\\') === comparePath) !== undefined
 	}
 }
 

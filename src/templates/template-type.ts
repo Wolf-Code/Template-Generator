@@ -2,6 +2,7 @@ export interface TemplateFile {
 	name: string
 	path: string
 	contents: string
+	openAfterGeneration: boolean
 }
 
 export interface TemplateParameter {
@@ -14,6 +15,7 @@ export interface TemplateParameter {
 
 export interface TemplateConfiguration {
 	parameters: TemplateParameter[]
+	openAfterGeneration?: string[]
 }
 
 export interface Template {

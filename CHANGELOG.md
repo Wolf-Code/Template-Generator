@@ -1,4 +1,8 @@
 # Change Log
+# [0.2.0]
+### Added
+- `openAfterGeneration` template configuration, allowing for opening files right after generating a template. (Thanks for the suggestion Juan Romero!)
+
 # [0.1.7]
 ### Changed
 - Updated readme

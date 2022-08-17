@@ -13,6 +13,7 @@ This is especially useful for per-project templates, as you can use the .vscode 
 
 Inside the template folder, create a new folder with a recognizable name. This will be the name of this specific template.  
 This template folder can contain an optional `template.config.json` file if you intend to make use of parameters.  
+You can add all your own files and (sub-)directories to the template folder and they will all be created when the template is generated in Visual Studio Code.  
 
 #### template.config.json
 
@@ -27,16 +28,23 @@ The contents of this config file are as follows:
 			"pattern": "[a-zA-Z]+"
 		},
 		...
+	],
+	"openAfterGeneration": [
+		"{name}/{name}.js",
+		"{name}/{name}.module.scss",
+		...
 	]
 }
 ```
 
+### Parameters
 * `name`: This is the name of the parameter as it is presented during generation inside Visual Studio Code
 * `variable`: This is the name of the variable as it's used in the template.
 * `description`: This is the description of the parameter as it is presented during generation inside Visual Studio Code
 * `pattern` (optional): An optional RegEx pattern to ensure the user inputs a correct value.
 
-You can add all your own files and (sub-)directories to the template folder and they will all be created when the template is generated in Visual Studio Code.  
+### Opening files after generating them
+`openAfterGeneration`: This optional array of paths to files inside the template indicate which files should be opened immediately after generating them.
 
 #### Usage of parameters
 When adding files or contents of files to the template, parameter placeholders can be used.  

@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { window } from "vscode"
+import { window, Uri, workspace, ViewColumn } from "vscode"
 import { Template, TemplateFile, TemplateParameter } from "./template-type"
 
 const validateParameterInput = (parameter: TemplateParameter) => {
@@ -44,7 +44,7 @@ export const getTemplateParameters = async (template: Template): Promise<boolean
 
 	for (const parameter of parameters) {
 		await getParameterValue(parameter)
-		if(parameter.value === undefined) {
+		if (parameter.value === undefined) {
 			return false
 		}
 	}
@@ -54,28 +54,50 @@ export const getTemplateParameters = async (template: Template): Promise<boolean
 
 export const generateTemplate = async (template: Template, generatePath: string) => {
 	try {
-		template.files.forEach((file: TemplateFile) => {
+		for (const file of template.files) {
 			const filename = replaceParametersWithValues(template.configuration.parameters, `${file.path}`)
 			const fullPath = path.join(generatePath, filename)
 
 			const directoryPath = path.dirname(fullPath)
 
-			fs.exists(fullPath, async exists => {
-				if (!exists) {
-					await fs.promises.mkdir(directoryPath, { recursive: true })
+			const fileExists = await checkFileExistence(fullPath)
 
-					const contents = replaceParametersWithValues(template.configuration.parameters, file.contents)
-					await fs.promises.writeFile(fullPath, contents)
-				}
-				else {
-					window.showInformationMessage(`Skipped generation of ${file.name} as it already exists.`)
-				}
+			if (fileExists) {
+				window.showInformationMessage(`Skipped generation of ${file.name} as it already exists.`)
+			}
+			else {
+				await fs.promises.mkdir(directoryPath, { recursive: true })
+
+				const contents = replaceParametersWithValues(template.configuration.parameters, file.contents)
+				await fs.promises.writeFile(fullPath, contents)
+			}
+
+			if (!file.openAfterGeneration) {
+				continue
+			}
+
+			const openPath = Uri.file(fullPath)
+			const textDocument = await workspace.openTextDocument(openPath)
+			await window.showTextDocument(textDocument, {
+				viewColumn: ViewColumn.Active,
+				preview: false
 			})
-		})
+		}
 	} catch (err) {
-		console.error('Error while generating template', err.message)
+		if (err instanceof Error) {
+			console.error('Error while generating template', err.message)
+		}
 
 		throw err
+	}
+}
+
+const checkFileExistence = async (path: string) => {
+	try {
+		return !!(await fs.promises.stat(path))
+	}
+	catch (e) {
+		return false;
 	}
 }
 

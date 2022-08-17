@@ -11,5 +11,9 @@
 			"description": "The class to apply to the root element of the component",
 			"variable": "rootClass"
 		}
+	],
+	"openAfterGeneration": [
+		"{name}/{name}.js",
+		"{name}/{name}.module.scss"
 	]
 }

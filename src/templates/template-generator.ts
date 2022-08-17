@@ -27,7 +27,7 @@ export const executeGenerateTemplateCommand = async (selectedPath?: string) => {
 
 	try {
 		const parametersResult = await getTemplateParameters(template)
-		const wasCanceled = !(parametersResult)
+		const wasCanceled = !parametersResult
 		if(wasCanceled) {
 			return
 		}
@@ -38,9 +38,15 @@ export const executeGenerateTemplateCommand = async (selectedPath?: string) => {
 	} catch (err) {
 		if (err instanceof TemplateExistsError) {
 			window.showErrorMessage(`Template '${template.name}' already exists`)
-		} else {
+			return
+		} 
+		
+		if (err instanceof Error) {
 			window.showErrorMessage(`Error: ${err.message}`)
+			return
 		}
+
+		window.showErrorMessage('An unexpected error occurred.')
 	}
 }
 
