@@ -2,7 +2,7 @@
 	"name": "templategenerator",
 	"displayName": "Template Generator",
 	"description": "Generates your files and folders based on your own template, including custom parameters!",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"publisher": "kevin-deelen",
 	"repository": {
 		"url": "https://github.com/Wolf-Code/Template-Generator"
@@ -41,6 +41,10 @@
 					"templates.path": {
 						"type": "string",
 						"description": "The path to the directory containing all templates"
+					},
+					"templates.additionalPaths": {
+						"type": "array",
+						"description": "An array of additional paths containing additional templates"
 					}
 				}
 			}

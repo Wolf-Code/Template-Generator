@@ -1,13 +1,16 @@
 ## Features
 
-Automatic template generation in Visual Studio Code based on a pre-defined templates folder, using an extra context menu entry on directories in the Explorer.
-![](demo.gif)
+Automatic template generation in Visual Studio Code based on a pre-defined templates folder, using an extra context menu entry on directories in the Explorer.  
+![](demo.gif)  
 
 ### Configuration
 
 In your preferences, set the `templates.path` variable as the path to a directory which will contain all templates.  
 As of 0.1.6 it is also possible to use a relative path (using ./path-to-folder or ../path-to-folder) and this will resolve based on the first open workspace.  
-This is especially useful for per-project templates, as you can use the .vscode directory with a settings.json file to set this path differently in different projects.
+This is especially useful for per-project templates, as you can use the .vscode directory with a settings.json file to set this path differently in different projects.  
+
+The other configuration is `templates.additionalPaths`. This optional configuration allows for adding (multiple) additional paths to templates.  
+In essence it's the same as `templates.path`, but allowing for more than 1 path. This means you can set a single path for global templates, but add the additional paths per project(s).  
 
 ### Creating a template
 

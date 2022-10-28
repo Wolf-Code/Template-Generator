@@ -66,25 +66,40 @@ const getTemplateFile = async (name: string, path: string, relativePath: string,
 }
 
 export const getTemplates = async (): Promise<Template[]> => {
-	const path = getTemplatesPath()
-	if (!path) {
+	const paths = getTemplatesPaths()
+	if (paths.length <= 0) {
 		return []
 	}
 
-	const directories = (await fs.promises.readdir(path, { withFileTypes: true }))
-		.filter(x => x.isDirectory())
+	let templates: Template[] = []
 
-	return Promise.all(directories.map(async dir => await getTemplate(path, dir)))
+	for (var p of paths) {
+		const directories = (await fs.promises.readdir(p, { withFileTypes: true }))
+			.filter(x => x.isDirectory())
+
+		const pathTemplates = await Promise.all(directories.map(async dir => await getTemplate(p, dir)))
+		templates = [...templates, ...pathTemplates]
+	}
+
+	return templates
 }
 
-export const getTemplatesPath = (): string | undefined => {
+export const getTemplatesPaths = (): string[] => {
 	let path = workspace.getConfiguration('templates').get<string>('path')
+	const additionalPaths = workspace.getConfiguration('templates').get<string[]>('additionalPaths') ?? []
+	const paths = [path, ...additionalPaths].filter(x => x !== undefined).map(x => resolvePath(x!))
 
-	if (path?.startsWith('.')) {
-		const workspaces = workspace.workspaceFolders?.map(folder => folder.uri.fsPath)
-		if (workspaces && workspaces.length > 0) {
-			path = resolve(workspaces[0], path)
-		}
+	return paths
+}
+
+const resolvePath = (path: string): string => {
+	if (!path?.startsWith('.')) {
+		return path
+	}
+
+	const workspaces = workspace.workspaceFolders?.map(folder => folder.uri.fsPath)
+	if (workspaces && workspaces.length > 0) {
+		path = resolve(workspaces[0], path)
 	}
 
 	return path
